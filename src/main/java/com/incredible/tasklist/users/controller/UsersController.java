@@ -16,6 +16,7 @@ public class UsersController {
 
 	@PostMapping(value = "/login", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Object> login(@RequestBody LoginRequest logdata) {
+		System.out.println(logdata.toString());
 		return new ResponseEntity<Object>("Under Contruction", HttpStatus.OK);
 	}
 }
