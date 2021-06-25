@@ -9,15 +9,36 @@ drop table if exists public.tasks;
 drop table if exists public.taskcomments;
 drop table if exists public.taskattachments;
 drop table if exists public.usertypes;
+drop table if exists public.tasktypes;
+drop table if exists public.tasksubtypes;
 
 commit;
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
+create table if not exists public.tasktypes (
+	id int not null generated always as identity,
+	typename varchar,
+	typecode int,
+	primary key (id, typecode)
+)
+tablespace pg_default
+;
+
+create table if not exists public.tasksubtypes (
+	id int not null generated always as identity,
+	typename varchar,
+	typecode int,
+	primary key (id, typecode)
+)
+tablespace pg_default
+;
+
 create table if not exists public.usertypes (
 	id int not null generated always as identity,
 	typename varchar,
-	typecode int
+	typecode int,
+	primary key (id, typecode)
 )
 tablespace pg_default
 ;
@@ -30,6 +51,9 @@ create table if not exists public.users (
 	usertype int,
 	active bool,
 	disabled bool,
+	fname varchar,
+	lname varchar,
+	mname varchar,
 	primary key (sysuserid)
 )
 tablespace pg_default
