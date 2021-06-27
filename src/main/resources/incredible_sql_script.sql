@@ -3,6 +3,7 @@
 drop table if exists public.taskspaceusers;
 drop table if exists public.taskspace;
 drop table if exists public.users;
+drop table if exists public.userhistory;
 drop table if exists public.points;
 drop table if exists public.pointshistory;
 drop table if exists public.tasks;
@@ -15,6 +16,8 @@ drop table if exists public.tasksubtypes;
 commit;
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+
 
 create table if not exists public.tasktypes (
 	id int not null generated always as identity,
@@ -43,6 +46,8 @@ create table if not exists public.usertypes (
 tablespace pg_default
 ;
 
+-- transactional tables
+
 create table if not exists public.users (
 	sysuserid uuid DEFAULT uuid_generate_v4(),
 	username varchar not null,
@@ -54,11 +59,24 @@ create table if not exists public.users (
 	fname varchar,
 	lname varchar,
 	mname varchar,
+	created_at timestamp,
+	modified_at timestamp,
 	primary key (sysuserid)
 )
 tablespace pg_default
 ;
 
+create table if not exists public.userhistory (
+	id bigint not null generated always as identity,
+	sysuserid uuid not null,
+	txntype varchar,
+	txntimestamp timestamp,
+		created_at timestamp,
+	modified_at timestamp,
+	primary key (id)
+)
+tablespace pg_default
+;
 
 create table if not exists public.taskspace (
 
@@ -66,6 +84,8 @@ create table if not exists public.taskspace (
 	spacename varchar not null,
 	spacedesc text,
 	owner uuid,
+		created_at timestamp,
+	modified_at timestamp,
 	primary key (spaceid)
 )
 tablespace pg_default
@@ -75,6 +95,8 @@ create table if not exists public.taskspaceusers (
 	id bigint not null generated always as identity,
 	spaceid bigint not null,
 	sysuserid uuid not null,
+		created_at timestamp,
+	modified_at timestamp,
 	primary key (id)
 )
 tablespace pg_default
@@ -84,6 +106,8 @@ create table if not exists public.points (
 	id bigint not null generated always as identity,
 	pointsavailable int null,
 	owner uuid not null,
+		created_at timestamp,
+	modified_at timestamp,
 	primary key (id)
 )
 tablespace pg_default
@@ -96,6 +120,8 @@ create table if not exists public.pointshistory (
 	points int,
 	txntype int,
 	txndate timestamp,
+		created_at timestamp,
+	modified_at timestamp,
 	primary key (txnid)
 )
 tablespace pg_default
@@ -120,6 +146,8 @@ create table if not exists public.tasks (
 	actualend timestamp,
 	helpneeded bool,
 	penalty int,
+		created_at timestamp,
+	modified_at timestamp,
 	primary key (taskid)
 )
 tablespace pg_default
@@ -132,23 +160,22 @@ create table if not exists public.taskcomments (
 	comment text,
 	commentedby uuid,
 	commentedon timestamp,
+		created_at timestamp,
+	modified_at timestamp,
 	primary key (id)
 	
 ) tablespace pg_default ;
 
 
-create table if not exists public.taskattachments (
-	id bigint not null generated always as identity,
-	taskid bigint,
-	attachmentname varchar,
-	attachment bytea,
-	attachedby uuid,
-	attachedon timestamp,
-	
-	primary key (id)
-)
-tablespace pg_default
-;
+create table if not exists public.taskattachments ( id bigint not null generated always as identity,
+taskid bigint,
+attachmentname varchar,
+attachment bytea,
+attachedby uuid,
+attachedon timestamp,
+created_at timestamp,
+modified_at timestamp,
+primary key (id) ) tablespace pg_default ;
 
 truncate
 	table usertypes;
