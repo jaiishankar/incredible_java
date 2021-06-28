@@ -1,7 +1,12 @@
 package com.incredible.tasklist.users.bo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel
 public class LoginRequest {
 
+	@ApiModelProperty(notes="Required field for all requests")
 	String username;
 	String passcode;
 	String pincode;

@@ -13,6 +13,9 @@ import com.incredible.tasklist.users.bo.LoginRequest;
 import com.incredible.tasklist.users.bo.LoginResponse;
 import com.incredible.tasklist.users.bo.UserLoginHistoryResponse;
 
+import io.swagger.annotations.Api;
+
+@Api(description="User Action APIs", tags = "User Actions")
 @RestController
 @RequestMapping("/users")
 public class UsersController {
