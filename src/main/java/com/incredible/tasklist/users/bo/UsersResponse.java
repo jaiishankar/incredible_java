@@ -1,9 +1,8 @@
 package com.incredible.tasklist.users.bo;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 
-public class UsersRequest {
-
+public class UsersResponse {
 	String username;
 	String password;
 	String sysuserid;
@@ -12,10 +11,16 @@ public class UsersRequest {
 	String firstName;
 	String lastName;
 	String middleName;
+
 	int usertype;
 	int taskspaceid;
+	int pincode;
 
-	ArrayList<UsersBO> children;
+	boolean active;
+	boolean disabled;
+
+	LocalDateTime created;
+	LocalDateTime modified;
 
 	public String getUsername() {
 		return username;
@@ -95,6 +100,46 @@ public class UsersRequest {
 
 	public void setTaskspaceid(int taskspaceid) {
 		this.taskspaceid = taskspaceid;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
+
+	public LocalDateTime getCreated() {
+		return created;
+	}
+
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
+
+	public LocalDateTime getModified() {
+		return modified;
+	}
+
+	public void setModified(LocalDateTime modified) {
+		this.modified = modified;
 	}
 
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.incredible.tasklist.users.bo.UsersRequest;
+import com.incredible.tasklist.users.bo.UsersResponse;
 
 import io.swagger.annotations.Api;
 
@@ -17,26 +18,23 @@ import io.swagger.annotations.Api;
 public class UserOnboardController {
 
 	@PostMapping(value = "/signup", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Object> signup (@RequestBody UsersRequest user){
+	public ResponseEntity<UsersResponse> signup (@RequestBody UsersRequest user){
 		return null;
 	}
 	
 	@PostMapping(value = "/signup/child", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Object> signupChild (@RequestBody UsersRequest user){
+	public ResponseEntity<UsersResponse> signupChild (@RequestBody UsersRequest user){
 		return null;
 	}
 	
 	@PostMapping(value = "/cancel", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Object> cancel (){
+	public ResponseEntity<UsersResponse> cancel (){
 		return null;
 	}
 	
 	@PostMapping(value = "/invite", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Object> invite (){
+	public ResponseEntity<UsersResponse> invite (){
 		return null;
 	}
-
-	
-	
 	
 }
